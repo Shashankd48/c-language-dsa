@@ -13,7 +13,7 @@ int* insertionSort(int arr[],int size){
 }
 
 int main(void){
-    int arr[] = {-1, 20, 60, 10, 50, 30};
+    int arr[] = {-1, 50, 40, 30, 20, 10};
     size_t size = sizeof(arr) / sizeof(arr[0]);
 
     int* list = insertionSort(arr, size);
