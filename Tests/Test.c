@@ -1,42 +1,47 @@
-// C program to implement recursive Binary Search
+// C program for implementation of selection sort
 #include <stdio.h>
-
-// A recursive binary search function. It returns
-// location of x in given array arr[l..r] is present,
-// otherwise -1
-int binarySearch(int arr[], int l, int r, int x)
+ 
+void swap(int *xp, int *yp)
 {
-	if (r >= l) {
-		int mid = l + (r - l) / 2;
-
-		// If the element is present at the middle
-		// itself
-		if (arr[mid] == x)
-			return mid;
-
-		// If element is smaller than mid, then
-		// it can only be present in left subarray
-		if (arr[mid] > x)
-			return binarySearch(arr, l, mid - 1, x);
-
-		// Else the element can only be present
-		// in right subarray
-		return binarySearch(arr, mid + 1, r, x);
-	}
-
-	// We reach here when element is not
-	// present in array
-	return -1;
+    int temp = *xp;
+    *xp = *yp;
+    *yp = temp;
 }
-
-int main(void)
+ 
+void selectionSort(int arr[], int n)
 {
-	int arr[] = { 2, 3, 4, 10, 40 };
-	int n = sizeof(arr) / sizeof(arr[0]);
-	int x = 10;
-	int result = binarySearch(arr, 0, n - 1, x);
-	(result == -1)
-		? printf("Element is not present in array")
-		: printf("Element is present at index %d", result);
-	return 0;
+    int i, j, min_idx;
+ 
+    // One by one move boundary of unsorted subarray
+    for (i = 0; i < n-1; i++)
+    {
+        // Find the minimum element in unsorted array
+        min_idx = i;
+        for (j = i+1; j < n; j++)
+          if (arr[j] < arr[min_idx])
+            min_idx = j;
+ 
+        // Swap the found minimum element with the first element
+        swap(&arr[min_idx], &arr[i]);
+    }
+}
+ 
+/* Function to print an array */
+void printArray(int arr[], int size)
+{
+    int i;
+    for (i=0; i < size; i++)
+        printf("%d ", arr[i]);
+    printf("\n");
+}
+ 
+// Driver program to test above functions
+int main()
+{
+    int arr[] = {64, 25, 12, 22, 11};
+    int n = sizeof(arr)/sizeof(arr[0]);
+    selectionSort(arr, n);
+    printf("Sorted array: \n");
+    printArray(arr, n);
+    return 0;
 }
