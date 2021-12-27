@@ -56,18 +56,16 @@ int main(void){
     printf("Enter Tree Size: ");
     scanf("%d",&size);
 
-    struct node *bst = newNode(11);
+    int *list = (int*) malloc(sizeof(int)*size);
 
-    insert(bst, 6);
-    insert(bst, 7);
-    insert(bst, 8);
-    insert(bst, 9);
-    insert(bst, 2);
+    for(int i = 0; i<size; i++){
+        scanf("%d",&list[i]);
+    }
 
-    // for(int i=0; i<size; i++){
-    //     scanf("%d",item);
-    //     insert(bst, item);
-    // }
+    struct node *bst = newNode(list[0]);
+    for(int i=1; i<size; i++){
+        insert(bst,list[i]);
+    }
     inorderTraversal(bst);
     printf("\n");
     postorderTraversal(bst);
