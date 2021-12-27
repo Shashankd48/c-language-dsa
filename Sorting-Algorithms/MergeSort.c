@@ -13,9 +13,8 @@ void merge(int *arr, int low, int mid, int high){
     int size1 = mid - low + 1;
     int size2 = high - mid;
 
-    // int *leftArray = (int*) malloc(sizeof(int) * size1);
-    // int *rightArray = (int*) malloc(sizeof(int) * size2);
-    int leftArray[size1], rightArray[size2];
+    int *leftArray = (int*) malloc(sizeof(int) * size1);
+    int *rightArray = (int*) malloc(sizeof(int) * size2);
 
     for (int i = 0; i < size1; i++){
         leftArray[i] = arr[low + i];
