@@ -1,5 +1,4 @@
 #include<stdio.h>
-// Performing recursive method in quick sort
 
 // function to print array elements
 void printArray(int array[], int size) {
