@@ -1,47 +1,80 @@
-// C program for implementation of selection sort
+// Quick sort in C
+
 #include <stdio.h>
- 
-void swap(int *xp, int *yp)
-{
-    int temp = *xp;
-    *xp = *yp;
-    *yp = temp;
+
+// function to swap elements
+void swap(int *a, int *b) {
+  int t = *a;
+  *a = *b;
+  *b = t;
 }
- 
-void selectionSort(int arr[], int n)
-{
-    int i, j, min_idx;
- 
-    // One by one move boundary of unsorted subarray
-    for (i = 0; i < n-1; i++)
-    {
-        // Find the minimum element in unsorted array
-        min_idx = i;
-        for (j = i+1; j < n; j++)
-          if (arr[j] < arr[min_idx])
-            min_idx = j;
- 
-        // Swap the found minimum element with the first element
-        swap(&arr[min_idx], &arr[i]);
+
+// function to find the partition position
+int partition(int array[], int low, int high) {
+  
+  // select the rightmost element as pivot
+  int pivot = array[high];
+  
+  // pointer for greater element
+  int i = (low - 1);
+
+  // traverse each element of the array
+  // compare them with the pivot
+  for (int j = low; j < high; j++) {
+    if (array[j] <= pivot) {
+        
+      // if element smaller than pivot is found
+      // swap it with the greater element pointed by i
+      i++;
+      
+      // swap element at i with element at j
+      swap(&array[i], &array[j]);
     }
+  }
+
+  // swap the pivot element with the greater element at i
+  swap(&array[i + 1], &array[high]);
+  
+  // return the partition point
+  return (i + 1);
 }
- 
-/* Function to print an array */
-void printArray(int arr[], int size)
-{
-    int i;
-    for (i=0; i < size; i++)
-        printf("%d ", arr[i]);
-    printf("\n");
+
+void quickSort(int array[], int low, int high) {
+  if (low < high) {
+    
+    // find the pivot element such that
+    // elements smaller than pivot are on left of pivot
+    // elements greater than pivot are on right of pivot
+    int pi = partition(array, low, high);
+    
+    // recursive call on the left of pivot
+    quickSort(array, low, pi - 1);
+    
+    // recursive call on the right of pivot
+    quickSort(array, pi + 1, high);
+  }
 }
- 
-// Driver program to test above functions
-int main()
-{
-    int arr[] = {64, 25, 12, 22, 11};
-    int n = sizeof(arr)/sizeof(arr[0]);
-    selectionSort(arr, n);
-    printf("Sorted array: \n");
-    printArray(arr, n);
-    return 0;
+
+// function to print array elements
+void printArray(int array[], int size) {
+  for (int i = 0; i < size; ++i) {
+    printf("%d  ", array[i]);
+  }
+  printf("\n");
 }
+
+// main function
+int main() {
+  int data[] = {8, 7, 2, 1, 0, 9, 6};
+  
+  int n = sizeof(data) / sizeof(data[0]);
+  
+  printf("Unsorted Array\n");
+  printArray(data, n);
+  
+  // perform quicksort on data
+  quickSort(data, 0, n - 1);
+  
+  printf("Sorted array in ascending order: \n");
+  printArray(data, n);
+} 
